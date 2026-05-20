@@ -192,9 +192,10 @@ class NetHackEnvironment(Environment):
     def __init__(self, task_spec: JSONObject, secrets: dict[str, str] = {}) -> None:
         super().__init__(task_spec)
         self.config = TaskSpec.model_validate(task_spec)
-        self.env = None
-        self.current_obs = None
-        self.current_score = 0
+        self.env = self._make_env()
+        obs, _info = self.env.reset(seed=self.config.seed)
+        self.current_obs = obs
+        self.current_score = int(obs["blstats"][9])
         self.step_count = 0
         self.game_over = False
 
@@ -216,14 +217,6 @@ class NetHackEnvironment(Environment):
                 "tty_chars", "tty_colors", "tty_cursor", "misc",
             ),
         )
-
-    async def setup(self):
-        self.env = self._make_env()
-        obs, _info = self.env.reset(seed=self.config.seed)
-        self.current_obs = obs
-        self.current_score = int(obs["blstats"][9])
-        self.step_count = 0
-        self.game_over = False
 
     async def teardown(self):
         if self.env is not None:

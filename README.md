@@ -20,13 +20,11 @@ NetHack is an environment for evaluating agents on the classic roguelike dungeon
 
 ## License
 
-[NetHack General Public License](https://github.com/NetHack-LE/nle/blob/main/LICENSE).
+[MIT](https://opensource.org/licenses/MIT). NetHack and NLE are distributed under the [NetHack General Public License](https://github.com/NetHack-LE/nle/blob/main/LICENSE).
 
 ## Tasks
 
-There is one split:
-
-- **train**: 1,000 tasks (seeds 0-999)
+There are 1,000 tasks in the `train` split (seeds 0-999).
 
 Each task corresponds to a unique random seed that generates a distinct dungeon layout, starting character, and item placement. All tasks use the full NetHack action space (121 actions). Since every task is a procedurally generated dungeon with no structural difference between them, a single split is used.
 
